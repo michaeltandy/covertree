@@ -5,10 +5,8 @@ import java.util.Random;
 public class BasicBenchmark {
 
     public static void main(String[] args) {
-
         testInserts(10000);
         testInserts(1000000);
-
     }
 
     public static void testInserts(int insertCount) {
@@ -26,7 +24,10 @@ public class BasicBenchmark {
         }
         long duration = System.currentTimeMillis() - startTime;
         System.out.println("Inserted " + insertCount + " records in " + duration + "ms");
-
+        
+        if (ct.size() != insertCount) {
+            throw new RuntimeException("After inserting, number of elements is wrong? " + ct.size() + " when we expected " + insertCount);
+        }
     }
 
     private static double randBetween(Random r, double a, double b) {

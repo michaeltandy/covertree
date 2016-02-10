@@ -7,7 +7,9 @@ This class provides a Java version of the cover tree nearest neighbor algorithm.
 
 Nils Loehndorf extended the original algorithm is towards selecting K centers which are maximally different from one another from an online sample.
 
-Copyright (c) 2013, Nils Loehndorf.
+Michael Tandy changed some odds and ends - look at the commit history for the gory details.
+
+Copyright (c) 2013, Nils Loehndorf. Portions copyright (c) 2015, Michael Tandy.
  
 The software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software. Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely.
 
