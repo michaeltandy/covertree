@@ -47,6 +47,7 @@ public class CoverTreeTest {
             });
         }
         ex.awaitTermination(10, TimeUnit.SECONDS);
+        ex.shutdown();
         
         assertEquals(1000, instance.size());
         testFindNearest(instance, testData, 3000);
