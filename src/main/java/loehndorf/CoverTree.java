@@ -487,8 +487,29 @@ public class CoverTree<E> {
 				return 1;
 			return 0;
 		}
-		
-		
+                
+                public String toJson() {
+                    StringBuilder sb = new StringBuilder();
+                    toJson(sb);
+                    return sb.toString();
+                }
+                
+		private void toJson( StringBuilder sb) {
+                    sb.append("{\"id\": \"").append(Integer.toHexString(this.hashCode()))
+                            .append(String.format("\", \"lat\":%.5f, \"lon\":%.5f", point[0], point[1]))
+                            //.append(String.format(", \"level\":%d, \"radius\":%.3f", level, Math.pow(base, level)))
+                            .append(", \"children\": [");
+                    
+                    for (Node n : children) {
+                        n.toJson(sb);
+                        sb.append(",");
+                    }
+                    
+                    if (sb.charAt(sb.length()-1) == ',') {
+                        sb.deleteCharAt(sb.length()-1);
+                    }
+                    sb.append("]}");
+                }
 	}
 
 }
