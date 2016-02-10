@@ -29,6 +29,31 @@ public class CoverTreeTest {
         testFindNearest(instance, testData, 3000);
     }
     
+    @Test
+    public void testDoubleInsertAndGetNearest() {
+        CoverTree<String> instance = new CoverTree();
+        
+        double[] pointA = {1, 1};
+        double[] pointB = {1.5, 20};
+        double[] pointC = {1, 1.5};
+        
+        assertTrue(instance.insert("a", pointA));
+        assertTrue(instance.insert("b", pointB));
+        assertTrue(instance.insert("c", pointC));
+        
+        assertEquals(3,instance.size());
+        
+        assertFalse(instance.insert("A", pointA));
+        assertFalse(instance.insert("B", pointB));
+        assertFalse(instance.insert("C", pointC));
+        
+        assertEquals(3,instance.size());
+        
+        assertEquals("a", instance.getNearest(pointA));
+        assertEquals("b", instance.getNearest(pointB));
+        assertEquals("c", instance.getNearest(pointC));
+    }
+    
     @Ignore // This always fails - start with a failing test :)
     @Test
     public void testParallelInsert() throws InterruptedException {
