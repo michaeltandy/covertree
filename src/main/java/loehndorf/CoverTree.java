@@ -18,7 +18,7 @@
 
 package loehndorf;
 
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -132,7 +132,7 @@ public class CoverTree<E> {
 		//contains the new point, the old root is added as child of the new root
 		Node<E> oldRoot = rootNode;
 		double dist = oldRoot.distance(point);
-		while (dist > Math.pow(base,maxLevel)) {
+		while (dist > distanceForLevel(maxLevel)) {
 			Node<E> newRoot = new Node<E>(null,rootNode.element,rootNode.point);
 			rootNode.setParent(newRoot);
 			newRoot.addChild(rootNode);
@@ -149,7 +149,7 @@ public class CoverTree<E> {
 	 * Insert a point into the tree. If the tree size is greater than k the lowest cover will be removed as long as it does not decrease tree size below k.
 	 * @param point
 	 */
-	public boolean insert(E element, double[] point, int k) {
+	/*public boolean insert(E element, double[] point, int k) {
 		boolean inserted = insert(element,point);
 		//only do this if there are more than two levels
 		if (maxLevel-minLevel>2) {
@@ -165,7 +165,7 @@ public class CoverTree<E> {
 			}
 		}
 		return inserted;
-	}
+	}*/
 	
 	/**
 	 * Insert a point into the tree.
@@ -192,7 +192,7 @@ public class CoverTree<E> {
 		if (rootNode.distance == 0.)
 			return false;
 		//if the node lies outside the cover of the root node and its decendants then insert the node above the root node
-		if (rootNode.distance > Math.pow(base,maxLevel+1)) {
+		if (rootNode.distance > distanceForLevel(maxLevel+1)) {
 			insertAtRoot(element,point);
 			return true;
 		}
@@ -217,7 +217,7 @@ public class CoverTree<E> {
 					}
 					else 
 						n2.distance = n1.distance;
-					if (n2.distance < Math.pow(base,level)) {
+					if (n2.distance < distanceForLevel(level)) {
 						candidates.add(n2);
 						parentFound = false;
 					}
@@ -229,7 +229,7 @@ public class CoverTree<E> {
 				break;
 			//select one node of the coverset as the parent of the node
 			for (Node<E> n : coverset) {
-				if (n.distance < Math.pow(base,level)) {
+				if (n.distance < distanceForLevel(level)) {
 					parent = n;
 					parentLevel = level;
 					break;
@@ -261,7 +261,7 @@ public class CoverTree<E> {
 	/**
 	 * Removes the the cover at the lowest level of the tree.
 	 */
-	void removeLowestCover() {
+	/*void removeLowestCover() {
 		List<Node<E>> coverset = new LinkedList<Node<E>>();
 		coverset.add(rootNode);
 		int k = maxLevel;
@@ -275,13 +275,13 @@ public class CoverTree<E> {
 			n.removeChildren();
 		
 		minLevel++;
-	}
+	}*/
 	
 	
 	/**
 	 * Removes all but k points.
 	 */
-	List<Node<E>> removeNodes(int numCenters) {
+	/*List<Node<E>> removeNodes(int numCenters) {
 		List<Node<E>> coverset = new LinkedList<Node<E>>();
 		coverset.add(rootNode);
 		int k = maxLevel;
@@ -306,7 +306,7 @@ public class CoverTree<E> {
 			for (Node<E> n1 : candidates) {
 				double minDist = Double.POSITIVE_INFINITY;
 				for (Node<E> n2 : n1.getParent().getParent().getChildren()) {
-					double dist = n1.distance(n2.point);
+					double dist = n1.squaredDistance(n2.point);
 					if (dist < minDist)
 						minDist = dist;
 				}
@@ -321,7 +321,7 @@ public class CoverTree<E> {
 				//update the distance of all candidates in the neighborhood of the new node
 				for (Node<E> n : newNode.getParent().getParent().getChildren()) {
 					if (n!=newNode) {
-						double dist = newNode.distance(n.point);
+						double dist = newNode.squaredDistance(n.point);
 						if (dist < newNode.distance)
 							newNode.distance = dist;
 					}
@@ -334,7 +334,7 @@ public class CoverTree<E> {
 			decNodes(minLevel);
 		}
 		return coverset;
-	}
+	}*/
 	
 	/**
 	 * Retrieve the elemnet from the tree that is nearest to the given point with respect to the Euclidian distance.
@@ -365,7 +365,7 @@ public class CoverTree<E> {
 			candidates.clear();
 			//create a set of candidate nearest neighbors
 			for (Node<E> n : newCandidates)
-				if (n.distance < minDist + Math.pow(base,i))
+				if (n.distance < minDist + distanceForLevel(i))
 					candidates.add(n);
 		}
 		for (Node<E> n : candidates) {
@@ -380,7 +380,7 @@ public class CoverTree<E> {
 	 * @param level
 	 * @return
 	 */
-	public List<E> getCover(int level) {
+	/*public List<E> getCover(int level) {
 		List<Node<E>> coverset = new LinkedList<Node<E>>();
 		coverset.add(rootNode);
 		int k = maxLevel;
@@ -396,15 +396,19 @@ public class CoverTree<E> {
 		}
 		
 		return cover;
-	}
+	}*/
 	
+        private double distanceForLevel(int level) {
+            return Math.pow(base,level);
+        }
+        
 	/**
 	 * Gets at least k centers which are maximally apart from each other. All remaining centers are removed from the tree. This function only works as designed
 	 * when the function insert(point,k) has been used before to add points to the tree. Otherwise, it will return the cover one level above the bottom most level of the tree.
 	 * @param number of centers
 	 * @return
 	 */
-	public List<E> getKCenters(int numCenters) {
+	/*public List<E> getKCenters(int numCenters) {
 		List<Node<E>> coverset = removeNodes(numCenters);
 		//create cover
 		List<E> cover = new LinkedList<E>();
@@ -422,7 +426,7 @@ public class CoverTree<E> {
 			sumSq += d*d;
 		}
 		return sumSq;
-	}
+	}*/
 	
 	@SuppressWarnings("hiding")
 	class Node<E> implements Comparable<Node<E>> {
