@@ -2,9 +2,14 @@
 package loehndorf;
 
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 public class CoverTreeTest {
     
@@ -21,6 +26,29 @@ public class CoverTreeTest {
         addAllConsecutively(instance, testData);
         assertEquals(1000, instance.size());
         
+        testFindNearest(instance, testData, 3000);
+    }
+    
+    @Ignore // This always fails - start with a failing test :)
+    @Test
+    public void testParallelInsert() throws InterruptedException {
+        List<Entry> testData = makeTestData(1000);
+        
+        final CoverTree<String> instance = new CoverTree();
+        
+        ExecutorService ex = Executors.newFixedThreadPool(2);
+        for (final Entry e : testData) {
+            ex.execute(new Runnable() {
+                @Override
+                public void run() {
+                    double[] point = {e.x, e.y};
+                    instance.insert(e.getNote(), point);
+                }
+            });
+        }
+        ex.awaitTermination(10, TimeUnit.SECONDS);
+        
+        assertEquals(1000, instance.size());
         testFindNearest(instance, testData, 3000);
     }
     
