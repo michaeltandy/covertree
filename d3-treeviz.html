@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tree Example</title>
+
+    <style>
+	
+	.node {
+		cursor: pointer;
+	}
+
+	.node circle {
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 3px;
+	}
+
+	.node text {
+	  font: 12px sans-serif;
+	}
+
+	.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 2px;
+	}
+	
+    </style>
+
+  </head>
+
+  <body>
+
+<!-- load the d3.js library -->	
+<script src="http://d3js.org/d3.v3.js"></script>
+	
+<script>
+
+var treeData =[{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": []}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": []}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": []}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": [{"id": "1540e19d", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "677327b6", "lat":0.42345, "lon":0.55866, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": [{"id": "14ae5a5", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": [{"id": "7f31245a", "lat":0.41798, "lon":0.35194, "children": [{"id": "6d6f6e28", "lat":0.41798, "lon":0.35194, "children": [{"id": "135fbaa4", "lat":0.41798, "lon":0.35194, "children": [{"id": "45ee12a7", "lat":0.41798, "lon":0.35194, "children": [{"id": "330bedb4", "lat":0.41798, "lon":0.35194, "children": []}]}]}]}]}]}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": [{"id": "1540e19d", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "677327b6", "lat":0.42345, "lon":0.55866, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": [{"id": "14ae5a5", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": [{"id": "7f31245a", "lat":0.41798, "lon":0.35194, "children": [{"id": "6d6f6e28", "lat":0.41798, "lon":0.35194, "children": [{"id": "135fbaa4", "lat":0.41798, "lon":0.35194, "children": [{"id": "45ee12a7", "lat":0.41798, "lon":0.35194, "children": [{"id": "330bedb4", "lat":0.41798, "lon":0.35194, "children": []}]}]}]},{"id": "2503dbd3", "lat":0.72343, "lon":0.25795, "children": []}]}]}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": [{"id": "1540e19d", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "677327b6", "lat":0.42345, "lon":0.55866, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": [{"id": "14ae5a5", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": [{"id": "7f31245a", "lat":0.41798, "lon":0.35194, "children": [{"id": "6d6f6e28", "lat":0.41798, "lon":0.35194, "children": [{"id": "135fbaa4", "lat":0.41798, "lon":0.35194, "children": [{"id": "45ee12a7", "lat":0.41798, "lon":0.35194, "children": [{"id": "330bedb4", "lat":0.41798, "lon":0.35194, "children": [{"id": "4b67cf4d", "lat":0.41798, "lon":0.35194, "children": [{"id": "7ea987ac", "lat":0.41798, "lon":0.35194, "children": [{"id": "12a3a380", "lat":0.41798, "lon":0.35194, "children": [{"id": "29453f44", "lat":0.41798, "lon":0.35194, "children": [{"id": "5cad8086", "lat":0.41798, "lon":0.35194, "children": [{"id": "6e0be858", "lat":0.41798, "lon":0.35194, "children": []}]},{"id": "61bbe9ba", "lat":0.45327, "lon":0.28489, "children": []}]}]}]}]}]}]}]}]},{"id": "2503dbd3", "lat":0.72343, "lon":0.25795, "children": [{"id": "610455d6", "lat":0.72343, "lon":0.25795, "children": [{"id": "511d50c0", "lat":0.72343, "lon":0.25795, "children": []}]}]}]}]}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": [{"id": "1540e19d", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "677327b6", "lat":0.42345, "lon":0.55866, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": [{"id": "14ae5a5", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": [{"id": "7f31245a", "lat":0.41798, "lon":0.35194, "children": [{"id": "6d6f6e28", "lat":0.41798, "lon":0.35194, "children": [{"id": "135fbaa4", "lat":0.41798, "lon":0.35194, "children": [{"id": "45ee12a7", "lat":0.41798, "lon":0.35194, "children": [{"id": "330bedb4", "lat":0.41798, "lon":0.35194, "children": [{"id": "4b67cf4d", "lat":0.41798, "lon":0.35194, "children": [{"id": "7ea987ac", "lat":0.41798, "lon":0.35194, "children": [{"id": "12a3a380", "lat":0.41798, "lon":0.35194, "children": [{"id": "29453f44", "lat":0.41798, "lon":0.35194, "children": [{"id": "5cad8086", "lat":0.41798, "lon":0.35194, "children": [{"id": "6e0be858", "lat":0.41798, "lon":0.35194, "children": []}]},{"id": "61bbe9ba", "lat":0.45327, "lon":0.28489, "children": []}]}]}]}]},{"id": "60e53b93", "lat":0.27479, "lon":0.37025, "children": []}]}]}]}]},{"id": "2503dbd3", "lat":0.72343, "lon":0.25795, "children": [{"id": "610455d6", "lat":0.72343, "lon":0.25795, "children": [{"id": "511d50c0", "lat":0.72343, "lon":0.25795, "children": []}]}]}]}]}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": [{"id": "1540e19d", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "677327b6", "lat":0.42345, "lon":0.55866, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": [{"id": "14ae5a5", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": [{"id": "7f31245a", "lat":0.41798, "lon":0.35194, "children": [{"id": "6d6f6e28", "lat":0.41798, "lon":0.35194, "children": [{"id": "135fbaa4", "lat":0.41798, "lon":0.35194, "children": [{"id": "45ee12a7", "lat":0.41798, "lon":0.35194, "children": [{"id": "330bedb4", "lat":0.41798, "lon":0.35194, "children": [{"id": "4b67cf4d", "lat":0.41798, "lon":0.35194, "children": [{"id": "7ea987ac", "lat":0.41798, "lon":0.35194, "children": [{"id": "12a3a380", "lat":0.41798, "lon":0.35194, "children": [{"id": "29453f44", "lat":0.41798, "lon":0.35194, "children": [{"id": "5cad8086", "lat":0.41798, "lon":0.35194, "children": [{"id": "6e0be858", "lat":0.41798, "lon":0.35194, "children": []}]},{"id": "61bbe9ba", "lat":0.45327, "lon":0.28489, "children": []}]}]}]}]},{"id": "60e53b93", "lat":0.27479, "lon":0.37025, "children": []}]}]}]}]},{"id": "2503dbd3", "lat":0.72343, "lon":0.25795, "children": [{"id": "610455d6", "lat":0.72343, "lon":0.25795, "children": [{"id": "511d50c0", "lat":0.72343, "lon":0.25795, "children": [{"id": "5e2de80c", "lat":0.72343, "lon":0.25795, "children": [{"id": "1d44bcfa", "lat":0.72343, "lon":0.25795, "children": [{"id": "266474c2", "lat":0.72343, "lon":0.25795, "children": []}]},{"id": "6f94fa3e", "lat":0.62944, "lon":0.38134, "children": []}]}]}]}]}]}]}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": [{"id": "1540e19d", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "677327b6", "lat":0.42345, "lon":0.55866, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": [{"id": "14ae5a5", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": [{"id": "7f31245a", "lat":0.41798, "lon":0.35194, "children": [{"id": "6d6f6e28", "lat":0.41798, "lon":0.35194, "children": [{"id": "135fbaa4", "lat":0.41798, "lon":0.35194, "children": [{"id": "45ee12a7", "lat":0.41798, "lon":0.35194, "children": [{"id": "330bedb4", "lat":0.41798, "lon":0.35194, "children": [{"id": "4b67cf4d", "lat":0.41798, "lon":0.35194, "children": [{"id": "7ea987ac", "lat":0.41798, "lon":0.35194, "children": [{"id": "12a3a380", "lat":0.41798, "lon":0.35194, "children": [{"id": "29453f44", "lat":0.41798, "lon":0.35194, "children": [{"id": "5cad8086", "lat":0.41798, "lon":0.35194, "children": [{"id": "6e0be858", "lat":0.41798, "lon":0.35194, "children": []}]},{"id": "61bbe9ba", "lat":0.45327, "lon":0.28489, "children": []}]}]},{"id": "5e481248", "lat":0.39660, "lon":0.44642, "children": []}]}]},{"id": "60e53b93", "lat":0.27479, "lon":0.37025, "children": [{"id": "66d3c617", "lat":0.27479, "lon":0.37025, "children": []}]}]}]}]}]},{"id": "2503dbd3", "lat":0.72343, "lon":0.25795, "children": [{"id": "610455d6", "lat":0.72343, "lon":0.25795, "children": [{"id": "511d50c0", "lat":0.72343, "lon":0.25795, "children": [{"id": "5e2de80c", "lat":0.72343, "lon":0.25795, "children": [{"id": "1d44bcfa", "lat":0.72343, "lon":0.25795, "children": [{"id": "266474c2", "lat":0.72343, "lon":0.25795, "children": []}]},{"id": "6f94fa3e", "lat":0.62944, "lon":0.38134, "children": []}]}]}]}]}]}]}]}]}]}]}]}},
+{"base": 1.2, "tree":{"id": "55f96302", "lat":0.57329, "lon":0.72568, "children": [{"id": "3d4eac69", "lat":0.57329, "lon":0.72568, "children": [{"id": "42a57993", "lat":0.57329, "lon":0.72568, "children": [{"id": "75b84c92", "lat":0.57329, "lon":0.72568, "children": [{"id": "6bc7c054", "lat":0.57329, "lon":0.72568, "children": [{"id": "232204a1", "lat":0.57329, "lon":0.72568, "children": [{"id": "4aa298b7", "lat":0.57329, "lon":0.72568, "children": [{"id": "7d4991ad", "lat":0.57329, "lon":0.72568, "children": [{"id": "28d93b30", "lat":0.57329, "lon":0.72568, "children": [{"id": "1b6d3586", "lat":0.57329, "lon":0.72568, "children": [{"id": "1540e19d", "lat":0.57329, "lon":0.72568, "children": []}]},{"id": "677327b6", "lat":0.42345, "lon":0.55866, "children": []}]},{"id": "4554617c", "lat":0.67879, "lon":0.47912, "children": [{"id": "14ae5a5", "lat":0.67879, "lon":0.47912, "children": []}]}]}]}]},{"id": "74a14482", "lat":0.41798, "lon":0.35194, "children": [{"id": "7f31245a", "lat":0.41798, "lon":0.35194, "children": [{"id": "6d6f6e28", "lat":0.41798, "lon":0.35194, "children": [{"id": "135fbaa4", "lat":0.41798, "lon":0.35194, "children": [{"id": "45ee12a7", "lat":0.41798, "lon":0.35194, "children": [{"id": "330bedb4", "lat":0.41798, "lon":0.35194, "children": [{"id": "4b67cf4d", "lat":0.41798, "lon":0.35194, "children": [{"id": "7ea987ac", "lat":0.41798, "lon":0.35194, "children": [{"id": "12a3a380", "lat":0.41798, "lon":0.35194, "children": [{"id": "29453f44", "lat":0.41798, "lon":0.35194, "children": [{"id": "5cad8086", "lat":0.41798, "lon":0.35194, "children": [{"id": "6e0be858", "lat":0.41798, "lon":0.35194, "children": []}]},{"id": "61bbe9ba", "lat":0.45327, "lon":0.28489, "children": []}]}]},{"id": "5e481248", "lat":0.39660, "lon":0.44642, "children": []}]}]},{"id": "60e53b93", "lat":0.27479, "lon":0.37025, "children": [{"id": "66d3c617", "lat":0.27479, "lon":0.37025, "children": []}]}]}]}]}]},{"id": "2503dbd3", "lat":0.72343, "lon":0.25795, "children": [{"id": "610455d6", "lat":0.72343, "lon":0.25795, "children": [{"id": "511d50c0", "lat":0.72343, "lon":0.25795, "children": [{"id": "5e2de80c", "lat":0.72343, "lon":0.25795, "children": [{"id": "1d44bcfa", "lat":0.72343, "lon":0.25795, "children": [{"id": "266474c2", "lat":0.72343, "lon":0.25795, "children": []}]},{"id": "6f94fa3e", "lat":0.62944, "lon":0.38134, "children": [{"id": "63947c6b", "lat":0.62944, "lon":0.38134, "children": [{"id": "2b193f2d", "lat":0.62944, "lon":0.38134, "children": [{"id": "355da254", "lat":0.62944, "lon":0.38134, "children": [{"id": "4dc63996", "lat":0.62944, "lon":0.38134, "children": [{"id": "d716361", "lat":0.62944, "lon":0.38134, "children": [{"id": "6ff3c5b5", "lat":0.62944, "lon":0.38134, "children": []}]},{"id": "3764951d", "lat":0.60355, "lon":0.32329, "children": []}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}}
+];
+// ************** Generate the tree diagram	 *****************
+var margin = {top: 12, right: 20, bottom: 20, left: 12};
+var j = 2, duration = 750, panelSize = 0.495,
+	panelSizePercent = (panelSize*100)+"%"
+	panelOffsetPercent = ((1-panelSize)*100)+"%";
+
+var mainsvg = d3.select("body").append("svg").attr('id','mainsvg').attr("style", "width: 100%; height:80vh; max-height:800px; position:relative");
+
+mainsvg.append("rect").attr("height","100%").attr("width","100%").attr('id','greybg').attr("style","fill:rgb(230,230,230)");
+
+var sizeElement = document.getElementById('greybg');
+//mainsvg.append("rect").attr("height","20%").attr("width","20%").attr("x","20%").attr("y","20%").attr("style","fill:rgb(0,0,230)");
+
+mainsvg.append("rect").attr("height",panelSizePercent).attr("width",panelSizePercent).attr("style","fill:rgb(255,255,255)");
+var topleft = mainsvg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+mainsvg.append("rect").attr("height",panelSizePercent).attr("width",panelSizePercent).attr("x",panelOffsetPercent).attr("style","fill:rgb(255,255,255)");
+var topright = mainsvg.append("g").attr("transform", "translate(" + (margin.left+getWidth()*(1-panelSize)) + "," + margin.top + ")");
+
+mainsvg.append("rect").attr("height",panelSizePercent).attr("width",panelSizePercent).attr("y",panelOffsetPercent).attr("style","fill:rgb(255,255,255)");
+var bottomleft = mainsvg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top+getHeight()*(1-panelSize)) + ")");
+
+mainsvg.append("rect").attr("height",panelSizePercent).attr("width",panelSizePercent).attr("x",panelOffsetPercent).attr("y",panelOffsetPercent).attr("style","fill:rgb(255,255,255)");
+var bottomright = mainsvg.append("g").attr("transform", "translate(" + (margin.left+getWidth()*(1-panelSize)) + "," + (margin.top+getHeight()*(1-panelSize)) + ")");
+
+//var	width = window.innerWidth - margin.right - margin.left,
+//	height = (0.8*window.innerHeight) - margin.top - margin.bottom;
+//console.log("Width:"+width+", Height:"+height)
+
+var tree = d3.layout.tree().size([100, 100]);
+
+var diagonal = d3.svg.diagonal().projection(function(d) {
+	return [d.x, d.y];
+});
+
+update(treeData[j]);
+window.onresize = function(){ update(treeData[j]) };
+
+function getWidth() {
+  return sizeElement.getBBox().width;
+}
+
+function getHeight() {
+  return sizeElement.getBBox().height;
+}
+
+function update(root) {
+  var width = getWidth() - margin.right - margin.left,
+	height = getHeight() - margin.top - margin.bottom;
+
+  updatePane(root, topleft, function(d) { 
+    d.y = d.lat*panelSize*height;
+    d.x = d.lon*panelSize*width; }, false, true, true);
+  updatePane(root, topright, function(d) { 
+    d.x = d.depth * panelSize * width/14; 
+    d.y = d.lat * panelSize * height; }, true, false, false);
+  updatePane(root, bottomleft, function(d) { 
+    d.y = d.depth * panelSize * height/14; 
+    d.x = d.lon*panelSize*width; }, true, false, false);
+  updatePane(root, bottomright, function(d) { 
+    d.y = d.depth * panelSize * height/14;
+    d.originalx = d.originalx || d.x;
+    d.x = d.originalx * panelSize * width/100.0;
+  }, true, true, false);
+}
+
+function updatePane(data, svg, normalisingFunction, hasLinks, hasLabels, hasEllipses) {
+  var root = data.tree;
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse(),
+	links = tree.links(nodes),
+	width = getWidth() - margin.right - margin.left,
+	height = getHeight() - margin.top - margin.bottom;
+
+  // Normalize for fixed-depth.
+  nodes.forEach(normalisingFunction);
+  //nodes.forEach(function(d) { d.x = d.lon*width; });
+
+  // Declare the nodes…
+  var node = svg.selectAll("g.node")
+	  .data(nodes, function(d) { return d.id; });
+
+  // Enter the nodes.
+  var nodeEnter = node.enter().append("g")
+	  .attr("class", "node")
+	  //.attr("x", function(d) { return d.x; }).attr("y", function(d) { return d.y; });
+	  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  nodeEnter.append("circle")
+	  .attr("class", "nodecircle")
+	  .attr("r", 8)
+	  .style("fill", "#fff")
+          .style("stroke", function(d) { return stringToColorCode(d.lat.toFixed(3) + "," + d.lon.toFixed(3)) })
+	  .style("fill-opacity", 0)
+	  .style("opacity", 0);
+  if (hasEllipses) {
+    nodeEnter.append("ellipse")
+	  .attr("rx", function(d) { return Math.pow(1.2,-d.depth) * panelSize * width; } )
+	  .attr("ry", function(d) { return Math.pow(1.2,-d.depth) * panelSize * height; } )
+	  //.attr("note", function(d) { return "Level "+d.level; } )
+          .style("stroke", function(d) { return stringToColorCode(d.lat.toFixed(3) + "," + d.lon.toFixed(3)) })
+	  .style("fill-opacity", 0)
+	  .style("opacity", 0.4);
+  }
+
+  if (hasLabels) {
+    nodeEnter.append("text")
+	  .attr("y", 0)
+	  .attr("x", 14)
+	  .attr("dy", ".35em")
+	  .attr("text-anchor", "left")
+	  .text(function(d) { 
+		if (!hasEllipses || !d.parent || d.parent.lat!=d.lat || d.parent.lon!=d.lon) {
+			return d.lat.toFixed(3) + "," + d.lon.toFixed(3);
+		} else { 
+			return "";
+		} })
+	  .style("fill-opacity", 0);
+  }
+
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+	  .duration(duration)
+	  //.attr("x", function(d) { return d.x; }).attr("y", function(d) { return d.y; });
+	  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  nodeUpdate.select("circle.nodecircle").style("fill-opacity", 1).style("opacity", 1);
+  nodeUpdate.select("text").style("fill-opacity", 1);
+
+
+  if (hasLinks) {
+    var link = svg.selectAll("path.link")
+	  .data(links, function(d) { return d.target.id; });
+
+    link.enter().insert("path", "g")
+	  .attr("class", "link")
+	  .attr("d", diagonal);
+
+    link.transition()
+	  .duration(duration)
+	  .attr("d", diagonal);
+
+    link.exit().remove();
+  }
+  node.exit().remove();
+}
+
+function stringToColorCode(str) {
+	// From https://gist.github.com/vaiorabbit/5657561
+	// Ref.: http://isthe.com/chongo/tech/comp/fnv/
+	var FNV1_32A_INIT = 0x811c9dc5;
+	var hval = FNV1_32A_INIT;
+	for ( var i = 0; i < str.length; ++i )
+	{
+		hval ^= str.charCodeAt(i);
+		hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
+	}
+        hval = (hval >>> 0);
+	var offset = hval%3;
+	mask = 0xFFFFFF ^ (0x80<<offset*8);
+	hval &= mask;
+	var hex = Number(hval).toString(16);
+	while (hex.length < 6) hex = "0"+hex;
+	return "#"+hex.substring(0, 6);
+}
+
+
+/*
+function oldupdate(source) {
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse(),
+	  links = tree.links(nodes);
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+  // Update the nodes…
+  var node = svg.selectAll("g.node")
+	  .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("g")
+	  .attr("class", "node")
+	  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+	  .on("click", click);
+
+  nodeEnter.append("circle")
+	  .attr("r", 1e-6)
+	  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeEnter.append("text")
+	  .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+	  .attr("dy", ".35em")
+	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+	  .text(function(d) { return d.name; })
+	  .style("fill-opacity", 1e-6);
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+	  .duration(duration)
+	  .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+  nodeUpdate.select("circle")
+	  .attr("r", 10)
+	  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeUpdate.select("text")
+	  .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+	  .duration(duration)
+	  .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+	  .remove();
+
+  nodeExit.select("circle")
+	  .attr("r", 1e-6);
+
+  nodeExit.select("text")
+	  .style("fill-opacity", 1e-6);
+
+  // Update the links…
+  var link = svg.selectAll("path.link")
+	  .data(links, function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("path", "g")
+	  .attr("class", "link")
+	  .attr("d", function(d) {
+		var o = {x: source.x0, y: source.y0};
+		return diagonal({source: o, target: o});
+	  });
+
+  // Transition links to their new position.
+  link.transition()
+	  .duration(duration)
+	  .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+	  .duration(duration)
+	  .attr("d", function(d) {
+		var o = {x: source.x, y: source.y};
+		return diagonal({source: o, target: o});
+	  })
+	  .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+	d.x0 = d.x;
+	d.y0 = d.y;
+  });
+}
+
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+	d._children = d.children;
+	d.children = null;
+  } else {
+	d.children = d._children;
+	d._children = null;
+  }
+  update(d);
+}*/
+
+function showNext() {
+  j = (j+1)%treeData.length;
+  update(treeData[j]);
+}
+
+function showLast() {
+  j = j-1;
+  if (j<0) j += treeData.length;
+  update(treeData[j]);
+}
+
+
+</script>
+
+<a href="#" onclick="showLast()">← Last</a>
+<a href="#" onclick="showNext()">Next →</a>
+
+  </body>
+</html>
+

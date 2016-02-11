@@ -494,7 +494,9 @@ public class CoverTree<E> {
                 
                 public String toJson() {
                     StringBuilder sb = new StringBuilder();
+                    sb.append("{\"base\": ").append(base).append(", \"tree\":");
                     toJson(sb);
+                    sb.append("}");
                     return sb.toString();
                 }
                 
